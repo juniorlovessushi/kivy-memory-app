@@ -9,12 +9,10 @@ from database import init_db, save_timestamp, get_last_timestamp
 class MobileAssistant(App):
 
     def build(self):
-        # Initialize SQLite database on startup
         init_db()
 
         layout = BoxLayout(orientation="vertical", padding=20, spacing=10)
 
-        # Load saved state from database on startup
         last_time = get_last_timestamp()
         self.label = Label(
             text=f"Last Recorded Time:\n{last_time}",
@@ -35,10 +33,8 @@ class MobileAssistant(App):
     def record_time(self, instance):
         now = datetime.now().strftime("%I:%M:%S %p (%Y-%m-%d)")
         
-        # Save to SQLite database
         save_timestamp(now)
         
-        # Update UI label
         self.label.text = f"Saved to Database:\n{now}"
 
 
